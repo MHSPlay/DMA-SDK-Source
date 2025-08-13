@@ -2,10 +2,22 @@
 
 namespace core 
 {
+    inline const char* processName = "gameName.exe";
+    inline uint64_t baseAddr = 0x0;
+    inline uint64_t baseSize = 0x0;
 
 	inline auto Thread( ) 
 	{
-		
+
+        if ( !TargetProcess->Init( processName ) )
+        {
+            LOG( "Failed to initialize process.\n" );
+            return FALSE;
+        }
+
+        baseAddr = TargetProcess->GetBaseAddress( processName );
+        baseSize = TargetProcess->GetBaseSize( processName );
+
 		std::thread( [ & ]( ) 
         {
         
